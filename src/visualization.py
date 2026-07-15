@@ -92,3 +92,22 @@ def gerar_heatmap_correlacao(df, colunas, metodo='pearson', titulo=None,
     plt.show()
 
     return matriz_corr
+
+#FUNÇÃO PARA GERAR BOXPLOTS PARA VISUALIZAÇÃO DE OUTLIERS
+
+def gerar_boxplots(df, colunas, figsize_por_coluna=(4, 5)):
+    """
+    Gera boxplots lado a lado para identificar outliers nas colunas informadas.
+    """
+    largura, altura = figsize_por_coluna
+    fig, axes = plt.subplots(1, len(colunas), figsize=(largura * len(colunas), altura))
+ 
+    if len(colunas) == 1:
+        axes = [axes]
+ 
+    for ax, col in zip(axes, colunas):
+        sns.boxplot(y=df[col], ax=ax, color="lightsteelblue")
+        ax.set_title(col)
+ 
+    plt.tight_layout()
+    plt.show()

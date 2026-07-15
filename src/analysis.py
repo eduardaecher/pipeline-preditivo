@@ -3,11 +3,27 @@
 import pandas as pd
 import numpy as np
 
-def inspecionar_dados(df):
-    """Exibe informações básicas do DataFrame."""
-    print("\n=== INSPEÇÃO INICIAL DO DATASET ===")
-    print(f"Shape: {df.shape}")
-    print(f"\nColunas: {list(df.columns)}")
-    print(f"\nTipos de dados:\n{df.dtypes}")
-    print(f"\nValores nulos por coluna:\n{df.isnull().sum()}")
-    print(f"\nEstatísticas descritivas:\n{df.describe()}")
+def inspecionar_dados(df, colunas_numericas=None):
+    """
+    Exibe informações básicas do DataFrame.
+
+    Parâmetros:
+        df: DataFrame do pandas
+        colunas_numericas: lista de colunas para o resumo estatístico.
+                            Se None, usa todas as colunas numéricas do df.
+    """
+    print(f"Dimensões do dataset: {df.shape[0]} linhas x {df.shape[1]} colunas")
+    print()
+    print("Tipos de dados:")
+    print(df.dtypes)
+    print()
+    print("Resumo estatístico (colunas numéricas):")
+
+    if colunas_numericas is not None:
+        base = df[colunas_numericas]
+    else:
+        base = df.select_dtypes(include='number')
+
+    resumo = base.describe()
+    print(resumo)
+    return resumo
