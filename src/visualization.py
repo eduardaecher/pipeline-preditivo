@@ -111,3 +111,27 @@ def gerar_boxplots(df, colunas, figsize_por_coluna=(4, 5)):
  
     plt.tight_layout()
     plt.show()
+
+
+#CRIANDO GRÁFICO COMPARATIVO DOS RESULTADOS FINAIS ENTRE MODELOS
+
+def gerar_grafico_comparativo_final(acc_knn, acc_arvore):
+    """
+    Gera um gráfico de barras comparando a acurácia final de KNN e
+    Árvore de Decisão no conjunto de teste.
+    """
+    plt.figure(figsize=(6, 5))
+    modelos = ['KNN', 'Árvore de Decisão']
+    acuracias = [acc_knn, acc_arvore]
+ 
+    barras = plt.bar(modelos, acuracias, color=['#4C72B0', '#55A868'])
+    plt.ylim(0, 1)
+    plt.ylabel('Acurácia no teste')
+    plt.title('Comparação final: KNN vs Árvore de Decisão')
+ 
+    for barra, acc in zip(barras, acuracias):
+        plt.text(barra.get_x() + barra.get_width() / 2, acc + 0.02,
+                  f"{acc:.4f}", ha='center', fontweight='bold')
+ 
+    plt.tight_layout()
+    plt.show()
